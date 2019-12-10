@@ -1,0 +1,64 @@
+Bootstrap: library
+From: ubuntu:18.04
+Stage: build
+
+%files
+    ../../Miniconda3-latest-Linux-x86_64.sh /opt
+    #../../Anaconda3-2019.10-Linux-x86_64.sh /opt
+    ../../cuda_10.2.89_440.33.01_linux.run /opt
+    nvidia.icd /opt
+
+%environment
+    export PATH=/opt/miniconda3/bin:$PATH
+    export PATH=/usr/local/cuda-10.2/bin:/usr/local/cuda-10.2/nsight-compute-2019.5.0${PATH:+:${PATH}}
+    export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+
+%post
+    apt-get update && apt-get upgrade
+    apt-get install -y emacs gcc git
+    apt-get install -y apt-utils=1.2.29ubuntu0.1 \
+            libglib2.0-0=2.48.2-0ubuntu4.1 \
+            libsm6=2:1.2.2-1 \
+            libxext6=2:1.3.3-1 \
+            libxrender-dev=1:0.9.9-0ubuntu1
+
+    cd /opt
+
+    # conda
+    bash ./Miniconda3-latest-Linux-x86_64.sh -b -p /opt/miniconda3
+    # Anaconda does not download for some reason
+    #bash ./Anaconda3-2019.10-Linux-x86_64.sh -b -p /opt/anaconda3
+    export PATH=/opt/miniconda3/bin:$PATH
+    conda update conda
+
+    conda install -y pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
+
+    pip install ninja==1.8.2.post2 \
+        yacs==0.1.5 \
+        cython==0.29.5 \
+        matplotlib==3.0.2 \
+        opencv-python==4.0.0.21 \
+        mlperf_compliance==0.0.10 \
+        torchvision==0.2.2
+
+    git clone https://github.com/cocodataset/cocoapi.git \
+        && cd cocoapi/PythonAPI \
+        && git reset --hard ed842bffd41f6ff38707c4f0968d2cfd91088688 \
+        && python setup.py build_ext install
+
+    git clone https://github.com/mlperf/training.git
+    python setup.py install
+    cd /opt
+
+    # cuda
+    apt-get install -y libxml2
+    bash ./cuda_10.2.89_440.33.01_linux.run --silent --toolkit
+
+%runscript
+    echo "Container was created $NOW"
+    echo "Arguments received: $*"
+    exec echo "$@"
+
+%help
+    Container for mlperf object_detection.
