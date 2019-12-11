@@ -43,7 +43,11 @@ Stage: build
 
 %help
     Container for mlperf object_detection.
+    Create:
     sudo singularity build object_detection.sif object_detection.def
     or
     sudo singularity build --sandbox object_detection object_detection.def
     sudo singularity build object_detection.sif object_detection
+
+    Run interactively:
+    singularity shell --bind /pylon5/cc5phsp/wohlbier/training/object_detection/pytorch/datasets/coco:/opt/training/object_detection/pytorch/datasets/coco  --nv object_detection.sif
