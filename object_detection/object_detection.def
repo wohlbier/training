@@ -24,7 +24,7 @@ Stage: build
         matplotlib==3.1.2 \
         mlperf_compliance==0.0.10 \
         opencv-python==4.1.2.30 \
-        torchvision==0.4.2 \
+        torchvision==0.2.1 \
         tqdm==4.40.2 \
         yacs==0.1.6
 
