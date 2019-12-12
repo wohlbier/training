@@ -44,7 +44,7 @@ Stage: build
     export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
     # cuda available?
-    python -c import torch;from torch.utils.cpp_extension import CUDA_HOME;print(CUDA_HOME);print(torch.cuda.is_available())
+    python -c "import torch;from torch.utils.cpp_extension import CUDA_HOME;print(CUDA_HOME);print(torch.cuda.is_available())"
 
     # mlperf training
     cd /opt
