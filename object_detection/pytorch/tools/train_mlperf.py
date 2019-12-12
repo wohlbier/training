@@ -211,7 +211,6 @@ def train(cfg, local_rank, distributed):
 
 
 def main():
-    #mlperf_log.ROOT_DIR_MASKRCNN = os.path.dirname(os.path.abspath(__file__))
     mlperf_log.ROOT_DIR_MASKRCNN = os.environ["HOME"] + '/mlperf/training/object_detection'
 
     parser = argparse.ArgumentParser(description="PyTorch Object Detection Training")
@@ -237,6 +236,7 @@ def main():
 
     if is_main_process:
         # Setting logging file parameters for compliance logging
+        os.makedirs(mlperf_log.ROOT_DIR_MASKRCNN, exist_ok=True)
         os.environ["COMPLIANCE_FILE"] = mlperf_log.ROOT_DIR_MASKRCNN + '/MASKRCNN_complVv0.5.0_' + str(datetime.datetime.now())
         mlperf_log.LOG_FILE = os.getenv("COMPLIANCE_FILE")
         mlperf_log._FILE_HANDLER = logging.FileHandler(mlperf_log.LOG_FILE)

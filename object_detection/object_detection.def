@@ -25,6 +25,7 @@ Stage: build
         mlperf_compliance==0.0.10 \
         opencv-python==4.1.2.30 \
         torchvision==0.4.2 \
+        tqdm==4.40.2 \
         yacs==0.1.6
 
     # cocodataset
