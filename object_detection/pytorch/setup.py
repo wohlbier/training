@@ -29,7 +29,6 @@ def get_extensions():
     define_macros = []
 
     if CUDA_HOME is not None:
-    #if True:
         extension = CUDAExtension
         sources += source_cuda
         define_macros += [("WITH_CUDA", None)]

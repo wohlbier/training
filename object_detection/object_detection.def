@@ -16,6 +16,11 @@ Stage: build
     apt-get update && apt-get upgrade
     apt-get install -y curl emacs g++ gcc git unzip
 
+    # eventually download them
+    #wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    #chmod +x Miniconda3-latest-Linux-x86_64.sh
+    #./Miniconda3-latest-Linux-x86_64.sh -b -p /opt/miniconda3
+
     # conda
     cd /opt
     bash ./Miniconda3-latest-Linux-x86_64.sh -b -p /opt/miniconda3
@@ -43,16 +48,13 @@ Stage: build
     export PATH=/usr/local/cuda-10.2/bin:/usr/local/cuda-10.2/nsight-compute-2019.5.0${PATH:+:${PATH}}
     export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-    # cuda available?
-    python -c "import torch;from torch.utils.cpp_extension import CUDA_HOME;print(CUDA_HOME);print(torch.cuda.is_available())"
-
-    # mlperf training
-    cd /opt
-    git clone --recursive https://github.com/wohlbier/training.git
-    cd training/object_detection
-    bash ./install.sh
-    # done at location code is run.
-    #bash ./download_dataset.sh
+#   # mlperf training
+#   cd /opt
+#   git clone --recursive https://github.com/wohlbier/training.git
+#   cd training/object_detection
+#   bash ./install.sh
+#   # done at location code is run.
+#   #bash ./download_dataset.sh
 
 %runscript
     echo "Container was created $NOW"
