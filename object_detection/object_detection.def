@@ -4,12 +4,9 @@ Stage: build
 
 %files
     ../../Miniconda3-latest-Linux-x86_64.sh /opt
-    ../../cuda_10.2.89_440.33.01_linux.run /opt
 
 %environment
     export PATH=/opt/miniconda3/bin:$PATH
-    #export PATH=/usr/local/cuda-10.2/bin:/usr/local/cuda-10.2/nsight-compute-2019.5.0${PATH:+:${PATH}}
-    #export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 %post
     apt-get update && apt-get upgrade
@@ -41,12 +38,6 @@ Stage: build
         && git reset --hard ed842bffd41f6ff38707c4f0968d2cfd91088688 \
         && python setup.py build_ext install
 
-    # cuda
-    #cd /opt
-    #bash ./cuda_10.2.89_440.33.01_linux.run --silent --toolkit
-    #export PATH=/usr/local/cuda-10.2/bin:/usr/local/cuda-10.2/nsight-compute-2019.5.0${PATH:+:${PATH}}
-    #export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
    # mlperf training
    cd /opt
    git clone --recursive https://github.com/wohlbier/training.git
@@ -69,4 +60,4 @@ Stage: build
     sudo singularity build object_detection.sif object_detection
 
     Run interactively:
-    singularity shell --bind /pylon5/cc5phsp/wohlbier/training/object_detection/pytorch/datasets/coco:/opt/training/object_detection/pytorch/datasets/coco  --nv object_detection.sif
+    singularity shell --bind /pylon5/cc5phsp/wohlbier/mlperf/training/object_detection/pytorch/datasets/coco:/opt/training/object_detection/pytorch/datasets/coco  --nv object_detection.sif
