@@ -25,10 +25,12 @@ Stage: build
     conda install -y pytorch=1.1.0=cuda100py37he554f03_0 -c pytorch
     pip install \
         cython==0.29.5 \
+        git+git://github.com/NVIDIA/apex.git@9041a868a1a253172d94b113a963375b9badd030#egg=apex \
         matplotlib==3.0.2 \
         ninja==1.8.2.post2 \
         mlperf_compliance==0.0.10 \
         opencv-python==4.0.0.21 \
+        sacrebleu==1.2.10 \
         torchvision==0.2.2 \
         yacs==0.1.5
 

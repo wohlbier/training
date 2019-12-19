@@ -2,7 +2,7 @@
 
 set -e
 
-DATASET_DIR='/data'
+DATASET_DIR='/pylon5/cc5phsp/wohlbier/mlperf/training/rnn_translator/data'
 
 SEED=${1:-"1"}
 TARGET=${2:-"24.00"}
