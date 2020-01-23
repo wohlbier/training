@@ -2,3 +2,5 @@
 __pycache__/
 *.py[cod]
 *$py.class
+object_detection/pytorch/datasets/
+image_classification/data/
