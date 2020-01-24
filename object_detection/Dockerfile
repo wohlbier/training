@@ -1,7 +1,7 @@
 FROM pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 
-ENV http_proxy http://proxy.sei.cmu.edu:8080
-ENV https_proxy http://proxy.sei.cmu.edu:8080
+ENV http_proxy proxy
+ENV https_proxy proxy
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
