@@ -23,7 +23,7 @@ nvidia-docker build . -t mlperf/object_detection
 
 4. Run docker container and install code
 ```
-nvidia-docker run -v .:/workspace -t -i --rm --ipc=host mlperf/object_detection \
+nvidia-docker run -v $(pwd):/workspace -t -i --rm --ipc=host mlperf/object_detection \
     "cd mlperf/training/object_detection && ./install.sh"
 ```
 Now exit the docker container (Ctrl-D) to get back to your host.
@@ -36,8 +36,14 @@ source download_dataset.sh
 
 ### Steps to run benchmark.
 ```
-nvidia-docker run -v .:/workspace -t -i --rm --ipc=host mlperf/object_detection \
+nvidia-docker run -v $(pwd):/workspace -t -i --rm --ipc=host mlperf/object_detection \
     "cd mlperf/training/object_detection && ./run_and_time.sh"
+```
+
+### jgw, via https://github.com/mlperf/training/issues/304#issuecomment-561346214
+```
+DOCKER_COMMAND='./install.sh && ./run_and_time.sh'
+sudo nvidia-docker run -v $(pwd):/workspace -t -i --rm --ipc=host mlperf/object_detection bash -c "$DOCKER_COMMAND"
 ```
 
 # 3. Dataset/Environment
