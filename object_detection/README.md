@@ -40,8 +40,10 @@ nvidia-docker run -v $(pwd):/workspace -t -i --rm --ipc=host mlperf/object_detec
     "cd mlperf/training/object_detection && ./run_and_time.sh"
 ```
 
-### jgw, via https://github.com/mlperf/training/issues/304#issuecomment-561346214
+### jgw
 ```
+sudo nvidia-docker build . --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t mlperf/object_detection
+sudo nvidia-docker run -v $(pwd):/workspace -t -i --rm --ipc=host mlperf/object_detection bash
 DOCKER_COMMAND='./install.sh && ./run_and_time.sh'
 sudo nvidia-docker run -v $(pwd):/workspace -t -i --rm --ipc=host mlperf/object_detection bash -c "$DOCKER_COMMAND"
 ```
