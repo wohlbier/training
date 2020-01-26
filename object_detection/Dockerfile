@@ -1,7 +1,12 @@
 FROM pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 
-ENV http_proxy proxy
-ENV https_proxy proxy
+ARG UNAME=dockeruser
+ARG UID=1000
+ARG GID=1000
+ARG PROXY=http://myproxy.com
+
+ENV http_proxy $PROXY
+ENV https_proxy $PROXY
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
@@ -29,9 +34,6 @@ RUN git clone https://github.com/cocodataset/cocoapi.git \
  && git reset --hard ed842bffd41f6ff38707c4f0968d2cfd91088688 \
  && python setup.py build_ext install
 
-ARG UNAME=testuser
-ARG UID=1000
-ARG GID=1000
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -l -m -u $UID -g $GID -o -s /bin/bash $UNAME
 USER $UNAME
