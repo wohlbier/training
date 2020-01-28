@@ -42,7 +42,7 @@ nvidia-docker run -v $(pwd):/workspace -t -i --rm --ipc=host mlperf/object_detec
 
 ### jgw
 ```
-sudo nvidia-docker build . --build-arg UID=$(id -u) --build-arg GID=$(id -g) --build-arg PROXY=http://myproxy.com -t mlperf/object_detection
+sudo nvidia-docker build . --build-arg PROXY=http://proxy.sei.cmu.edu:8080 --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t mlperf/object_detection
 sudo nvidia-docker run -v $(pwd):/workspace -t -i --rm --ipc=host mlperf/object_detection bash
 DOCKER_COMMAND='./install.sh && ./run_and_time.sh'
 sudo nvidia-docker run -v $(pwd):/workspace -t -i --rm --ipc=host mlperf/object_detection bash -c "$DOCKER_COMMAND"

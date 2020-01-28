@@ -1,14 +1,10 @@
 FROM pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 
-ARG UNAME=dockeruser
-ARG UID=1000
-ARG GID=1000
-ARG PROXY=http://myproxy.com
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
+ARG PROXY
 ENV http_proxy $PROXY
 ENV https_proxy $PROXY
-
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 # install basics
 RUN apt-get update -y \
@@ -33,6 +29,10 @@ RUN git clone https://github.com/cocodataset/cocoapi.git \
  && cd cocoapi/PythonAPI \
  && git reset --hard ed842bffd41f6ff38707c4f0968d2cfd91088688 \
  && python setup.py build_ext install
+
+ARG UNAME=dockeruser
+ARG UID=1000
+ARG GID=1000
 
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -l -m -u $UID -g $GID -o -s /bin/bash $UNAME

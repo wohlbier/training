@@ -211,7 +211,8 @@ def train(cfg, local_rank, distributed):
 
 
 def main():
-    mlperf_log.ROOT_DIR_MASKRCNN = os.environ["HOME"] + '/mlperf/training/object_detection'
+    #mlperf_log.ROOT_DIR_MASKRCNN = os.environ["HOME"] + '/mlperf/training/object_detection'
+    mlperf_log.ROOT_DIR_MASKRCNN = "/workspace/training/logs/object_detection"
 
     parser = argparse.ArgumentParser(description="PyTorch Object Detection Training")
     parser.add_argument(

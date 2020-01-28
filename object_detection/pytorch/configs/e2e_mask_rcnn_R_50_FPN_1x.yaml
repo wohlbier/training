@@ -39,6 +39,6 @@ SOLVER:
   STEPS: (60000, 80000)
   MAX_ITER: 90000
 #docker
-OUTPUT_DIR: "/workspace/object_detection"
+OUTPUT_DIR: "/workspace/training/logs/object_detection"
 # singularity
 #OUTPUT_DIR: "/home/wohlbier/mlperf/training/object_detection"
