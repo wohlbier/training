@@ -1,5 +1,8 @@
 FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
 
+ARG PROXY
+ENV http_proxy $PROXY
+ENV https_proxy $PROXY
 
 WORKDIR /research
 
@@ -21,6 +24,7 @@ ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 RUN apt-get install -y python-setuptools
 
 RUN apt-get install -y python-pip python3-pip virtualenv htop
+RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade numpy scipy sklearn tf-nightly-gpu
 
 
@@ -33,4 +37,3 @@ RUN pip3 install -r official/requirements.txt
 
 
 ENTRYPOINT ["/bin/bash"]
-
